@@ -7,10 +7,13 @@ import {map} from 'rxjs/operators';
 })
 
 export class UserService {
+
+   size = 8;
+
    constructor(private http: HttpClient){}
 
    getUser(){
-      return this.http.get('https://randomuser.me/api/?inc=gender,name,picture,location&results=8&nat=gb%27')
+      return this.http.get('https://randomuser.me/api/?inc=gender,name,picture,location&results='+ this.size +'&nat=gb%27')
       .pipe(map(response =>response['results']))
       .pipe(map(users =>{
          return users.map(u=>{
@@ -22,6 +25,10 @@ export class UserService {
          })
       }))
       ;﻿
+   }
+
+   setSize(size){
+     this.size = size;
    }
 
    users=[
